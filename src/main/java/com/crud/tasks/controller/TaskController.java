@@ -31,5 +31,9 @@ import java.util.List;
         public void createTask(TaskDto taskDto) {
 
         }
+    @DeleteMapping("/hello/{id}")
+    public String deleteById(@PathVariable("id") Long id) {
+        return "Delete by id called";
+    }
     }
 

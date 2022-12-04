@@ -45,7 +45,7 @@ public class TrelloClient {
         URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/" + trelloUsername + "/boards")
                 .queryParam("key", trelloAppKey)
                 .queryParam("token", trelloToken)
-                .queryParam("fields", "name")
+                .queryParam("fields", "name,id")
                 .queryParam("lists", "all")
                 .build()
                 .encode()
@@ -53,7 +53,6 @@ public class TrelloClient {
 
         return url;
     }
-
     public CreatedTrelloCard createNewCard(TrelloCardDto trelloCardDto) {
         URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/cards")
                 .queryParam("key", trelloAppKey)
@@ -68,4 +67,5 @@ public class TrelloClient {
 
         return restTemplate.postForObject(url, null, CreatedTrelloCard.class);
     }
+
 }

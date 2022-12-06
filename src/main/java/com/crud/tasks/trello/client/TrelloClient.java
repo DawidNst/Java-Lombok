@@ -13,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,6 +25,8 @@ public class TrelloClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(TrelloClient.class);
     private final RestTemplate restTemplate;
     private final TrelloConfig trelloConfig;
+
+
 
     public CreatedTrelloCard createNewCard(TrelloCardDto trelloCardDto) {
         URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/cards")
@@ -42,6 +43,11 @@ public class TrelloClient {
         return restTemplate.postForObject(url, null, CreatedTrelloCard.class);
     }
 
+
+
+
+
+
     public List<TrelloBoardDto> getTrelloBoards() {
         URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/members/" + trelloConfig.getTrelloUser() + "/boards")
                 .queryParam("key", trelloConfig.getTrelloAppKey())
@@ -51,6 +57,7 @@ public class TrelloClient {
                 .build()
                 .encode()
                 .toUri();
+
         try {
             TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
             return Optional.ofNullable(boardsResponse)
@@ -58,11 +65,13 @@ public class TrelloClient {
                     .orElse(Collections.emptyList())
                     .stream()
                     .filter(p -> Objects.nonNull(p.getId()) && Objects.nonNull(p.getName()))
-                    .filter(p -> p.getName().contains("Kodilla"))
+                    //.filter(p -> p.getName().contains("Kodilla"))
                     .collect(Collectors.toList());
         } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
             return Collections.emptyList();
         }
     }
+
+
 }

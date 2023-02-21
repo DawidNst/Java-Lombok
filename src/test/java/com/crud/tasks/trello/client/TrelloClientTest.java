@@ -81,6 +81,7 @@ class TrelloClientTest {
         assertEquals("1", newCard.getId());
         assertEquals("test task", newCard.getName());
         assertEquals("http://test.com", newCard.getShortUrl());
+        assertNotNull(newCard.getBadges());
     }
 
     @Test

@@ -25,6 +25,9 @@ public class TrelloMapperTest {
         List <TrelloBoard> testList = trelloMapper.mapToBoards(trelloBoard);
         //Then
         assertEquals(1, testList.size());
+        assertEquals("1", trelloBoard.get(0).getId());
+        assertEquals("board", trelloBoard.get(0).getName());
+        assertEquals(1, trelloBoard.get(0).getLists().size());
     }
 
     @Test
@@ -40,7 +43,9 @@ public class TrelloMapperTest {
         List <TrelloBoardDto> trelloBoardDtos = trelloMapper.mapToBoardsDto(trelloBoards);
         //Then
         assertEquals(1, trelloBoardDtos.size());
-        assertEquals("1", list.getId());
+        assertEquals("1", trelloBoardDtos.get(0).getId());
+        assertEquals("board", trelloBoardDtos.get(0).getName());
+        assertEquals(1, trelloBoardDtos.get(0).getLists().size());
     }
 
     @Test
@@ -53,6 +58,8 @@ public class TrelloMapperTest {
         List <TrelloList> trelloLists = trelloMapper.mapToList(trelloList);
         //Then
         assertEquals(1, trelloLists.size());
+        assertEquals("1", trelloList.get(0).getId());
+        assertEquals("listDto1", trelloList.get(0).getName());
     }
 
     @Test
@@ -65,6 +72,8 @@ public class TrelloMapperTest {
         List <TrelloListDto> trelloLists = trelloMapper.mapToListDto(trelloList);
         //Then
         assertEquals(1, trelloLists.size());
+        assertEquals("1", trelloList.get(0).getId());
+        assertEquals("listDto1", trelloList.get(0).getName());
 
     }
 
@@ -76,6 +85,9 @@ public class TrelloMapperTest {
         TrelloCard trelloCard1 = trelloMapper.mapToCard(trelloCard);
         //Then
         assertEquals("card1", trelloCard1.getName());
+        assertEquals("description1", trelloCard.getDescription());
+        assertEquals("1", trelloCard.getPos());
+        assertEquals("1", trelloCard.getListId());
     }
 
     @Test
@@ -86,5 +98,8 @@ public class TrelloMapperTest {
         TrelloCardDto trelloCard1 = trelloMapper.mapToCardDto(trelloCard);
         //Then
         assertEquals("card1", trelloCard1.getName());
+        assertEquals("description1", trelloCard1.getDescription());
+        assertEquals("1", trelloCard1.getPos());
+        assertEquals("1", trelloCard1.getListId());
     }
 }

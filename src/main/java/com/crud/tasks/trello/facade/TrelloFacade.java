@@ -16,8 +16,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
     public class TrelloFacade {
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(TrelloFacade.class);
-
     private final TrelloService trelloService;
     private final TrelloMapper trelloMapper;
     private final TrelloValidator trelloValidator;
@@ -33,5 +31,4 @@ import java.util.stream.Collectors;
         trelloValidator.validateCard(trelloCard);
         return trelloService.createTrelloCard(trelloMapper.mapToCardDto(trelloCard));
     }
-
 }

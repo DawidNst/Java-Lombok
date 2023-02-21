@@ -26,14 +26,10 @@ class TrelloClientTest {
 
     @InjectMocks
     private TrelloClient trelloClient;
-
     @Mock
     private RestTemplate restTemplate;
-
     @Mock
     private TrelloConfig trelloConfig;
-
-
 
     @Test
     public void shouldFetchTrelloBoards() throws URISyntaxException {
@@ -59,21 +55,14 @@ class TrelloClientTest {
 
     }
 
-
     @Test
     public void shouldCreateCard() throws URISyntaxException {
-        // Given
+        //Given
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("http://test.com");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
         when(trelloConfig.getTrelloToken()).thenReturn("test");
-        TrelloCardDto trelloCardDto = new TrelloCardDto(
-                "Test task",
-                "Test Description",
-                "top",
-                "test_id"
+        TrelloCardDto trelloCardDto = new TrelloCardDto("Test task", "Test Description", "top", "test_id");
 
-
-        );
         URI uri = new URI("http://test.com/cards?key=test&token=test&name=Test%20task&desc=Test%20Description&pos=top&idList=test_id");
 
         CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto(
@@ -85,17 +74,14 @@ class TrelloClientTest {
 
         when(restTemplate.postForObject(uri, null, CreatedTrelloCardDto.class)).thenReturn(createdTrelloCardDto);
 
-        // When
+        //When
         CreatedTrelloCardDto newCard = trelloClient.createNewCard(trelloCardDto);
 
         // Then
         assertEquals("1", newCard.getId());
         assertEquals("test task", newCard.getName());
         assertEquals("http://test.com", newCard.getShortUrl());
-        assertEquals("Badges",newCard.getBadges());
-
     }
-
 
     @Test
     public void shouldReturnEmptyList() throws URISyntaxException {

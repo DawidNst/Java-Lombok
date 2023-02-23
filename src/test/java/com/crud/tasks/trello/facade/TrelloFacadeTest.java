@@ -31,18 +31,43 @@ class TrelloFacadeTest {
     @Mock
     private TrelloMapper trelloMapper;
 
+
     @Test
-    void shouldFetchTrelloBoards() {
+    void shouldFetchEmptyList() {
         // Given
         List<TrelloListDto> trelloLists =
                 List.of(new TrelloListDto("1", "test_list", false));
-
         List<TrelloBoardDto> trelloBoards =
                 List.of(new TrelloBoardDto("1", "test", trelloLists));
 
         List<TrelloList> mappedTrelloLists =
                 List.of(new TrelloList("1", "test_list", false));
+        List<TrelloBoard> mappedTrelloBoards =
+                List.of(new TrelloBoard("1", "test", mappedTrelloLists));
 
+        when(trelloService.fetchTrelloBoards()).thenReturn(trelloBoards);
+        when(trelloMapper.mapToBoards(trelloBoards)).thenReturn(mappedTrelloBoards);
+        when(trelloMapper.mapToBoardsDto(anyList())).thenReturn(List.of());
+        when(trelloValidator.validateTrelloBoards(mappedTrelloBoards)).thenReturn(List.of());
+
+        // When
+        List<TrelloBoardDto> trelloBoardDtos = trelloFacade.fetchTrelloBoards();
+
+        // Then
+        assertNotNull(trelloBoardDtos);
+        assertEquals(0, trelloBoardDtos.size());
+    }
+
+    @Test
+    void shouldFetchTrelloBoards() {
+        // Given
+        List<TrelloListDto> trelloLists =
+                List.of(new TrelloListDto("1", "test_list", false));
+        List<TrelloBoardDto> trelloBoards =
+                List.of(new TrelloBoardDto("1", "test", trelloLists));
+
+        List<TrelloList> mappedTrelloLists =
+                List.of(new TrelloList("1", "test_list", false));
         List<TrelloBoard> mappedTrelloBoards =
                 List.of(new TrelloBoard("1", "test", mappedTrelloLists));
 
@@ -69,6 +94,32 @@ class TrelloFacadeTest {
                 assertFalse(trelloListDto.isClosed());
             });
         });
-
     }
+
+    @Test
+    void shouldCreateCard() {
+        //Given
+        TrelloCardDto trelloCardDto = new TrelloCardDto();
+        trelloCardDto.setName("name");
+        trelloCardDto.setDescription("description");
+        trelloCardDto.setPos("pos");
+        trelloCardDto.setListId("listId");
+        TrelloCard trelloCard = new TrelloCard("name", "description", "pos", "listId");
+        CreatedTrelloCardDto createdTrelloCardDtoMock = new CreatedTrelloCardDto();
+        createdTrelloCardDtoMock.setId("id");
+        createdTrelloCardDtoMock.setName("name");
+        createdTrelloCardDtoMock.setShortUrl("shortUrl");
+
+        when(trelloMapper.mapToCard(trelloCardDto)).thenReturn(trelloCard);
+        when(trelloMapper.mapToCardDto(trelloCard)).thenReturn(trelloCardDto);
+        when(trelloService.createTrelloCard(trelloCardDto)).thenReturn(createdTrelloCardDtoMock);
+        //When
+        CreatedTrelloCardDto createdTrelloCardDto = trelloFacade.createCard(trelloCardDto);
+        //Then
+        assertNotNull(createdTrelloCardDto);
+        assertEquals("id", createdTrelloCardDto.getId());
+        assertEquals("name", createdTrelloCardDto.getName());
+        assertEquals("shortUrl", createdTrelloCardDto.getShortUrl());
+    }
+
 }

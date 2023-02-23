@@ -16,4 +16,5 @@ public class Trello {
     private int board;
     @JsonProperty("card")
     private int card;
+
 }

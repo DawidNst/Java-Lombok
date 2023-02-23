@@ -25,6 +25,6 @@ public class CreatedTrelloCardDto {
    private Badges badges;
 
 
-    public CreatedTrelloCardDto(String id, String test_task, String shortUrl, String badges) {
+    public CreatedTrelloCardDto(String id, String test_task, String shortUrl) {
     }
 }

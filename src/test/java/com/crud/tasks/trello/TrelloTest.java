@@ -15,7 +15,8 @@ public class TrelloTest {
          //when
         String board = String.valueOf(trello.getBoard());
         // then
-        assertEquals(1,1);
+        equals(board);
+
     }
     @Test
     void Trellotest(){

@@ -3,6 +3,7 @@ package com.crud.tasks.trello;
 import com.crud.tasks.domain.Trello;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class TrelloTest {
@@ -15,7 +16,8 @@ public class TrelloTest {
          //when
         String board = String.valueOf(trello.getBoard());
         // then
-        equals(board);
+        assertNotNull("board");
+        assertEquals(0,trello.getBoard());
 
     }
     @Test
@@ -25,6 +27,7 @@ public class TrelloTest {
         //when
         String card = String.valueOf(trello.getCard());
         //then
-        assertEquals(1,1);
+        assertNotNull("card");
+        assertEquals(0,trello.getCard());
     }
 }

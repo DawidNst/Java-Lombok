@@ -1,12 +1,9 @@
 package com.crud.tasks.trello.facade;
 
 import com.crud.tasks.domain.AttachmentsByType;
-
 import com.crud.tasks.domain.Trello;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AttachmentsByTypeTest {
 
@@ -22,7 +19,7 @@ public class AttachmentsByTypeTest {
         String trello = String.valueOf(attachmentsByType.getTrello());
 
         //then
-        Assertions.assertEquals(1,1);
+        assertEquals(false,trello.equals(1));
 
     }
 }

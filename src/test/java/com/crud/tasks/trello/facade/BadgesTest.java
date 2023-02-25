@@ -3,7 +3,6 @@ package com.crud.tasks.trello.facade;
 import com.crud.tasks.domain.Badges;
 import com.crud.tasks.domain.Trello;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BadgesTest {
@@ -17,7 +16,8 @@ private Trello trello;
         //when
         String votes = String.valueOf(badges.getVotes());
         // then
-        assertEquals(1,1);
+        votes.isEmpty();
+        assertEquals(0,badges.getVotes());
     }
     @Test
     void AttaTest(){
@@ -26,15 +26,17 @@ private Trello trello;
         //when
         String attachmentsByType = String.valueOf(badges.getAttachmentsByType());
         //then
-        assertEquals(1,1);
+        attachmentsByType.isEmpty();
+        assertEquals(null, badges.getAttachmentsByType());
     }
     @Test
     void BadgesTest(){
         //given
-        Badges badges = new Badges();
+        Badges badges1 = new Badges();
         //when
-        String badges1 = String.valueOf(badges.getBadges());
+        String badges = String.valueOf(badges1.getBadges());
         //then
-        assertEquals(1,1);
+        badges.isEmpty();
+        assertEquals(null,badges1.getBadges());
     }
 }

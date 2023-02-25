@@ -4,6 +4,7 @@ import com.crud.tasks.trello.config.TrelloConfig;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TrelloConfingTest {
 
@@ -17,7 +18,8 @@ public class TrelloConfingTest {
         //when
         String trelloApiEndpoint = String.valueOf(trelloConfig1.getTrelloApiEndpoint());
         //then
-        assertEquals(1,1);
+        assertNotNull(trelloApiEndpoint);
+        assertEquals(false,trelloApiEndpoint.equals(1));
     }
     @Test
     void AppKeyTest(){
@@ -26,7 +28,8 @@ public class TrelloConfingTest {
         //when
         String trelloAppKey = String.valueOf(trelloConfig1.getTrelloAppKey());
         //then
-        assertEquals(1,1);
+        assertNotNull(trelloAppKey);
+        assertEquals(false,trelloAppKey.equals(1));
     }
     @Test
     void TokenTest(){
@@ -35,7 +38,8 @@ public class TrelloConfingTest {
         //when
         String trelloToken = String.valueOf(trelloConfig1.getTrelloToken());
         //then
-        assertEquals(1,1);
+        assertNotNull(trelloToken);
+        assertEquals(false,trelloToken.equals(1));
     }
     @Test
     void UserTest(){
@@ -44,6 +48,7 @@ public class TrelloConfingTest {
         //when
         String trelloUser = String.valueOf(trelloConfig1.getTrelloUser());
         //then
-        assertEquals(1,1);
+        assertNotNull(trelloUser);
+        assertEquals(false,trelloUser.equals(1));
     }
 }

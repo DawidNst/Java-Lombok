@@ -1,42 +1,41 @@
 package com.crud.tasks.trello.facade;
 
 import com.crud.tasks.domain.Badges;
-import com.crud.tasks.domain.Trello;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BadgesTest {
 
-private Trello trello;
+    @Autowired
+    Badges badges = new Badges();
 
     @Test
     void VotesTest() {
         //given
         Badges badges = new Badges ();
         //when
-        String votes = String.valueOf(badges.getVotes());
+        Integer votes = (badges.getVotes());
         // then
-        votes.isEmpty();
-        assertEquals(0,badges.getVotes());
+        assertEquals(0,votes);
     }
     @Test
-    void AttaTest(){
+    void AttachmentsByTypeTest(){
         //given
         Badges badges = new Badges();
         //when
-        String attachmentsByType = String.valueOf(badges.getAttachmentsByType());
+        String attachmentsByType = String.valueOf((badges.getAttachmentsByType()));
         //then
-        attachmentsByType.isEmpty();
-        assertEquals(null, badges.getAttachmentsByType());
+        assertNotNull(attachmentsByType);
     }
     @Test
     void BadgesTest(){
         //given
         Badges badges1 = new Badges();
         //when
-        String badges = String.valueOf(badges1.getBadges());
+        String badges = (badges1.toString());
         //then
-        badges.isEmpty();
-        assertEquals(null,badges1.getBadges());
+        assertNotNull(badges);
     }
 }

@@ -59,7 +59,7 @@ public class DbServiceTest {
 
     }
     @Test
-    void deleteTaskTest(){
+    void deleteTaskTest() {
         //When
         Long taskId = 1L;
         Task task = new Task(taskId, "title", "content");

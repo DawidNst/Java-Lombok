@@ -11,26 +11,43 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class SimpleEmailService {
 
+    private final JavaMailSender javaMailSender;
     @Autowired
     private MailCreatorService mailCreatorService;
-    private final JavaMailSender javaMailSender;
 
     public void send(final Mail mail) {
-        log.info("Starting email preparation...");
+        log.info("Email preparation...");
         try {
-            SimpleMailMessage mailMessage = createMailMessage(mail);
-            javaMailSender.send(mailMessage);
+            javaMailSender.send(createMimeMessage(mail));
             log.info("Email has been sent.");
         } catch (MailException e) {
-            log.error("Failed to process email sending: " + e.getMessage(), e);
+            log.error("Failed email sending: " + e.getMessage(), e);
         }
+    }
+
+    public void sendScheduledEmail(final Mail mail) {
+        log.info("Email preparation...");
+        try {
+            javaMailSender.send(createScheduledMessage(mail));
+            log.info("Email has been sent.");
+        } catch (MailException e) {
+            log.error("Failed email sending: " + e.getMessage(), e);
+        }
+    }
+
+    private MimeMessagePreparator createScheduledMessage(Mail mail) {
+        return mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(mail.getMailTo());
+            messageHelper.setSubject(mail.getSubject());
+            messageHelper.setText(mailCreatorService.buildTrelloInfoEmail(mail.getMessage()), true);
+        };
     }
 
     private MimeMessagePreparator createMimeMessage(final Mail mail) {
@@ -41,7 +58,6 @@ public class SimpleEmailService {
             messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
         };
     }
-
 
     private SimpleMailMessage createMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();

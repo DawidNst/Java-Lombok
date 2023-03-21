@@ -7,7 +7,6 @@ import com.crud.tasks.service.SimpleEmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
 @Component
 @RequiredArgsConstructor
 public class EmailScheduler {
@@ -18,13 +17,13 @@ public class EmailScheduler {
     private final TaskRepository taskRepository;
     private final AdminConfig adminConfig;
 
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 0 10 * * *")
     //@Scheduled(fixedDelay = 10000)
     public void sendInformationEmail(){
         long size = taskRepository.count();
         String text;
-        text = size == 1 ? "Currently got 1 task" : " Currently : " + size + " tasks";
-        simpleEmailService.send(
+        text = size == 1 ? "Currently in database you got 1 task" : "Currently in database you got: " + size + " tasks";
+        simpleEmailService.sendScheduledEmail(
                 Mail.builder()
                         .mailTo(adminConfig.getAdminMail())
                         .subject(SUBJECT)
@@ -32,4 +31,6 @@ public class EmailScheduler {
                         .build()
         );
     }
+
+
 }

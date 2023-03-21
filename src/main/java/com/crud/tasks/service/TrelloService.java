@@ -1,6 +1,6 @@
 package com.crud.tasks.service;
 
-import com.crud.tasks.mapper.config.AdminConfig;
+import com.crud.tasks.config.AdminConfig;
 import com.crud.tasks.domain.CreatedTrelloCardDto;
 import com.crud.tasks.domain.Mail;
 import com.crud.tasks.domain.TrelloBoardDto;

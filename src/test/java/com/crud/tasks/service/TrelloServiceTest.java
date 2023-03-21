@@ -1,7 +1,7 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.domain.*;
-import com.crud.tasks.mapper.config.AdminConfig;
+import com.crud.tasks.config.AdminConfig;
 import com.crud.tasks.trello.client.TrelloClient;
 import com.crud.tasks.trello.config.TrelloConfig;
 import org.junit.jupiter.api.Assertions;
